@@ -1,7 +1,7 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 #
-# Copyright 2015 the original author or authors.
+# Copyright © 2015-2021 the original authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,31 +17,31 @@
 #
 
 ##############################################################################
-##
-##  Gradle start up script for UN*X
-##
+#
+#   Gradle start up script for *nix
+#
 ##############################################################################
 
 # Attempt to set APP_HOME
-# Resolve links: \$0 may be a link
-PRG="\$0"
+# Resolve links: $0 may be a link
+PRG="$0"
 # Need this for relative symlinks.
-while [ -h "\$PRG" ] ; do
-    ls=\`ls -ld "\$PRG"\`
-    link=\`expr "\$ls" : '.*-> \(.*\)\$'\`
-    if expr "\$link" : '/.*' > /dev/null; then
-        PRG="\$link"
+while [ -h "$PRG" ] ; do
+    ls=`ls -ld "$PRG"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+        PRG="$link"
     else
-        PRG=\`dirname "\$PRG"\`"/\$link"
+        PRG=`dirname "$PRG"`"/$link"
     fi
 done
-SAVED="\`pwd\`"
-cd "\`dirname \"\$PRG\"\`/" >/dev/null
-APP_HOME="\`pwd -P\`"
-cd "\$SAVED" >/dev/null
+SAVED="`pwd`"
+cd "`dirname \"$PRG\"`/" >/dev/null
+APP_HOME="`pwd -P`"
+cd "$SAVED" >/dev/null
 
 APP_NAME="Gradle"
-APP_BASE_NAME=\`basename "\$0"\`
+APP_BASE_NAME=`basename "$0"`
 
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
 DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
@@ -50,12 +50,12 @@ DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
 MAX_FD="maximum"
 
 warn () {
-    echo "\$*"
+    echo "$*"
 }
 
 die () {
     echo
-    echo "\$*"
+    echo "$*"
     echo
     exit 1
 }
@@ -65,7 +65,7 @@ cygwin=false
 msys=false
 darwin=false
 nonstop=false
-case "\`uname\`" in
+case "`uname`" in
   CYGWIN* )
     cygwin=true
     ;;
@@ -80,32 +80,75 @@ case "\`uname\`" in
     ;;
 esac
 
-CLASSPATH=\$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
 # Determine the Java version to use.
-java_version=\$(java -version 2>&1 | head -n1 | cut -d'"' -f2 | sed 's/^1\\.//' | cut -d'.' -f1)
-if [ "\$java_version" = "17" ]; then
+java_version=$("$JAVA_HOME/bin/java" -version 2>&1 | head -n1 | cut -d'"' -f2 | sed 's/^1\.//' | cut -d'.' -f1)
+if [ "$java_version" = "17" ]; then
     echo "Using Java 17"
 else
-    echo "Java 17 is required but found Java \$java_version"
+    echo "Java 17 is required but found Java $java_version"
     exit 1
 fi
 
-# For Cygwin or MSYS, switch paths to Windows format before running java
-if [ "\$cygwin" = "true" ] || [ "\$msys" = "true" ] ; then
-    APP_HOME=\`cygpath --path --mixed "\$APP_HOME"\`
-    CLASSPATH=\`cygpath --path --mixed "\$CLASSPATH"\`
-    JAVACMD=\`cygpath --unix "\$JAVACMD"\`
+# For Cygwin, switch paths to Windows format before running java
+if $cygwin ; then
+    APP_HOME=`cygpath --path --mixed "$APP_HOME"`
+    CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
+    JAVACMD=`cygpath --unix "$JAVACMD"`
+
+    # We build the pattern for arguments to be converted via cygpath
+    ROOTDIRSRAW=`find -L / -maxdepth 1 -mindepth 1 -type d 2>/dev/null`
+    SEP=""
+    for dir in $ROOTDIRSRAW ; do
+        ROOTDIRS="$ROOTDIRS$SEP$dir"
+        SEP="|"
+    done
+    OURCYGPATTERN="(^($ROOTDIRS))"
+    # Add a user-defined pattern to the cygpath arguments
+    if [ "$GRADLE_CYGPATTERN" != "" ] ; then
+        OURCYGPATTERN="$OURCYGPATTERN|($GRADLE_CYGPATTERN)"
+    fi
+    # Now convert the arguments - kludge to limit ourselves to /bin/sh
+    i=0
+    for arg in "$@" ; do
+        CHECK=`echo "$arg"|egrep -c "$OURCYGPATTERN" -`
+        CHECK2=`echo "$arg"|egrep -c "^-"`                                 ### Determine if an option
+
+        if [ $CHECK -ne 0 ] && [ $CHECK2 -eq 0 ] ; then                    ### Added a condition
+            eval `echo args$i`=`cygpath --path --ignore --mixed "$arg"`
+        else
+            eval `echo args$i`="\"$arg\""
+        fi
+        i=$((i+1))
+    done
+    case $i in
+        (0) set -- ;;
+        (1) set -- "$args0" ;;
+        (2) set -- "$args0" "$args1" ;;
+        (3) set -- "$args0" "$args1" "$args2" ;;
+        (4) set -- "$args0" "$args1" "$args2" "$args3" ;;
+        (5) set -- "$args0" "$args1" "$args2" "$args3" "$args4" ;;
+        (6) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" ;;
+        (7) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" ;;
+        (8) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" ;;
+        (9) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" "$args8" ;;
+    esac
 fi
 
 # Escape application args
 save () {
-    for i do printf %s\\\\n "\$i" | sed "s/'/'\\\\\\\\''/g;1s/^/'/;\\\\\$s/\\\\\$/' \\\\\\\\/" ; done
+    for i do printf %s\\n "$i" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/' \\\\/" ; done
     echo " "
 }
-APP_ARGS=\`save "\$@"\`
+APP_ARGS=$(save "$@")
 
 # Collect all arguments for the java command, following the shell quoting and substitution rules
-eval set -- \$DEFAULT_JVM_OPTS \$JAVA_OPTS \$GRADLE_OPTS "\"-Dorg.gradle.appname=\$APP_BASE_NAME\"" -classpath "\"\$CLASSPATH\"" org.gradle.wrapper.GradleWrapperMain "\$APP_ARGS"
+eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS "\"-Dorg.gradle.appname=$APP_BASE_NAME\"" -classpath "\"$CLASSPATH\"" org.gradle.wrapper.GradleWrapperMain "$APP_ARGS"
 
-exec "\$JAVACMD" "\$@"
+# by default we should be in the correct project dir, but when run from Finder on Mac, the cwd is wrong
+if [ "$(uname)" = "Darwin" ] && [ "$HOME" = "$PWD" ]; then
+  cd "$(dirname "$0")"
+fi
+
+exec "$JAVA_HOME/bin/java" "$@"

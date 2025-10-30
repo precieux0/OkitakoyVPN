@@ -1,4 +1,4 @@
-name: Android Build
+name: Android CI
 
 on:
   push:
@@ -9,54 +9,58 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: 'gradle'
-        
-    - name: Validate and fix gradlew
-      run: |
-        echo "=== Avant correction ==="
-        ls -la gradlew || echo "gradlew non trouvé"
-        
-        # Forcer le téléchargement si manquant ou corrompu
-        if [ ! -f "gradlew" ] || ! grep -q "gradle" gradlew; then
-          echo "Téléchargement d'un nouveau gradlew..."
-          curl -L https://raw.githubusercontent.com/gradle/gradle/master/gradlew -o gradlew
-        fi
-        
-        # Donner les permissions
-        chmod +x gradlew
-        
-        echo "=== Après correction ==="
-        ls -la gradlew
-        file gradlew
-        
-        # Vérifier le contenu
-        head -5 gradlew
-        
+
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
-      
+      with:
+        api-level: 34
+        build-tools-version: 34.0.0
+        cmake-version: 3.22.1
+        ndk-version: 25.1.8937393
+
+    - name: Validate environment
+      run: |
+        echo "=== Java Version ==="
+        java -version
+        echo ""
+        echo "=== Android SDK ==="
+        echo "ANDROID_HOME: $ANDROID_HOME"
+        echo ""
+        echo "=== Gradle Wrapper ==="
+        chmod +x ./gradlew
+        ls -la gradlew
+        file gradlew
+        echo ""
+        echo "=== Gradle Version ==="
+        ./gradlew --version || echo "Gradle version check failed"
+
     - name: Build with Gradle
       run: |
-        # Essayer d'abord avec le wrapper
-        ./gradlew tasks --no-daemon || echo "Gradle wrapper failed, trying system gradle..."
-        
-        # Si le wrapper échoue, utiliser gradle système
-        gradle build --no-daemon || ./gradlew build --no-daemon
-        
+        ./gradlew build --no-daemon --stacktrace
+
     - name: Upload APK
       if: success()
       uses: actions/upload-artifact@v4
       with:
         name: okitakoyvpn-apk
         path: app/build/outputs/apk/
-        
+        retention-days: 7
+
+    - name: Upload build reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-reports
+        path: app/build/reports/
+        retention-days: 7

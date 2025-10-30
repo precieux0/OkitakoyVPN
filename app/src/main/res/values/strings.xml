@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">OkitakoyVpn</string>
+    <string name="connect">Connecter</string>
+    <string name="disconnect">Déconnecter</string>
+    <string name="server_configuration">Configuration du Serveur</string>
+    <string name="protocol">Protocole</string>
+    <string name="server_address">Adresse du Serveur</string>
+    <string name="server_port">Port</string>
+    <string name="import_config">Importer Configuration</string>
+    <string name="export_config">Exporter Configuration</string>
+    <string name="settings">Paramètres</string>
+    <string name="faq">FAQ</string>
+    <string name="status_disconnected">Déconnecté</string>
+    <string name="status_connected">Connecté</string>
+    <string name="status_connecting">Connexion en cours...</string>
+    <string name="v2ray">V2Ray</string>
+    <string name="ssh">SSH</string>
+    <string name="websocket">WebSocket</string>
+    <string name="udp_custom">UDP Custom</string>
+    <string name="udp_request">UDP Request</string>
+</resources>

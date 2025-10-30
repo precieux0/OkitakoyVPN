@@ -1,0 +1,16 @@
+# Configuration VPN OkitakoyVpn
+# Créé par Okitakoy Précieux
+# Email: okitakoyprecieux@gmail.com
+# WhatsApp: +243982730192
+
+protocol=V2Ray
+server=vmess.example.com
+port=443
+uuid=12345678-1234-1234-1234-123456789abc
+alterId=0
+network=ws
+path=/v2ray
+tls=true
+
+timestamp=2024-01-01T00:00:00Z
+version=1.0.3

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="protocol_entries">
+        <item>V2Ray</item>
+        <item>SSH</item>
+        <item>WebSocket</item>
+        <item>UDP Custom</item>
+        <item>UDP Request</item>
+    </string-array>
+    
+    <string-array name="protocol_values">
+        <item>V2Ray</item>
+        <item>SSH</item>
+        <item>WebSocket</item>
+        <item>UDP Custom</item>
+        <item>UDP Request</item>
+    </string-array>
+</resources>

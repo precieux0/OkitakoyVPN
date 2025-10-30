@@ -1,0 +1,53 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceCategory android:title="Général">
+        
+        <SwitchPreferenceCompat
+            android:key="auto_connect"
+            android:title="Connexion automatique"
+            android:summary="Se connecter automatiquement au démarrage"
+            android:defaultValue="false" />
+            
+        <ListPreference
+            android:key="protocol_default"
+            android:title="Protocole par défaut"
+            android:summary="Protocole VPN par défaut"
+            android:entries="@array/protocol_entries"
+            android:entryValues="@array/protocol_values"
+            android:defaultValue="V2Ray" />
+            
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="Avancé">
+        
+        <EditTextPreference
+            android:key="custom_dns"
+            android:title="DNS personnalisé"
+            android:summary="Serveur DNS personnalisé"
+            android:defaultValue="8.8.8.8" />
+            
+        <SwitchPreferenceCompat
+            android:key="log_traffic"
+            android:title="Journal du trafic"
+            android:summary="Enregistrer le trafic réseau"
+            android:defaultValue="false" />
+            
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="À propos">
+        
+        <Preference
+            android:title="Version"
+            android:summary="1.0.3" />
+            
+        <Preference
+            android:title="Développeur"
+            android:summary="Okitakoy Précieux" />
+            
+        <Preference
+            android:title="Contact"
+            android:summary="okitakoyprecieux@gmail.com" />
+            
+    </PreferenceCategory>
+    
+</PreferenceScreen>

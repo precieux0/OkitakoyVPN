@@ -1,0 +1,21 @@
+{
+  "app_name": "OkitakoyVpn",
+  "version": "1.0.3",
+  "version_code": 4,
+  "developer": "Okitakoy Précieux",
+  "email": "okitakoyprecieux@gmail.com",
+  "whatsapp": "+243982730192",
+  "supported_protocols": [
+    "V2Ray",
+    "SSH",
+    "WebSocket",
+    "UDP Custom",
+    "UDP Request"
+  ],
+  "features": [
+    "Import/Export configurations",
+    "Fichiers .precieux",
+    "Interface moderne",
+    "Open Source"
+  ]
+}

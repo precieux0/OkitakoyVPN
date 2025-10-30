@@ -1,0 +1,8 @@
+# Configuration SSH pour tunneling
+Host vpn-tunnel
+    HostName your-ssh-server.com
+    Port 22
+    User username
+    IdentityFile ~/.ssh/id_rsa
+    DynamicForward 1080
+    ServerAliveInterval 60

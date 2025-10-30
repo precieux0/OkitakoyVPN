@@ -1,0 +1,22 @@
+GUIDE D'UTILISATION - OkitakoyVpn
+
+Protocoles Supportés:
+- V2Ray: Protocole avancé avec chiffrement robuste
+- SSH: Tunnel sécurisé via SSH
+- WebSocket: Pour contourner les restrictions
+- UDP Custom: Protocole personnalisé UDP
+- UDP Request: Requêtes UDP spécialisées
+
+Comment utiliser:
+1. Sélectionnez un protocole
+2. Entrez l'adresse du serveur
+3. Entrez le port
+4. Cliquez sur "Connecter"
+
+Import/Export:
+- Export: Génère des fichiers .precieux
+- Import: Charge vos configurations sauvegardées
+
+Support:
+Contact: okitakoyprecieux@gmail.com
+WhatsApp: +243982730192

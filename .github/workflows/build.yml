@@ -1,0 +1,42 @@
+name: Build OkitakoyVPN
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    - name: Make gradlew executable
+      run: |
+        ls -la gradlew || echo "gradlew not found"
+        chmod +x gradlew
+        ls -la gradlew
+        
+    - name: Setup Android SDK
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y android-sdk
+        
+    - name: Build project
+      run: ./gradlew build --no-daemon
+      
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-apk
+        path: app/build/outputs/apk/
+        
